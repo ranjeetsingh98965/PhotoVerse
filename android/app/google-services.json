@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "712618346488",
+    "project_id": "photoverse-1f3e6",
+    "storage_bucket": "photoverse-1f3e6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:712618346488:android:850052956caef0bac5f80d",
+        "android_client_info": {
+          "package_name": "com.photoverse"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfk8O-xTxt0Ue1MF42Y0AEuk8e5JnEYZc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
