@@ -215,7 +215,9 @@ const AccountScreen = () => {
           ) : (
             <View
               style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-              <Text style={{color: '#fff', fontSize: 16}}>No posts yet!</Text>
+              <Text style={{color: '#fff', fontSize: 16}}>
+                No images here yet! Start capturing memories to fill this space.
+              </Text>
             </View>
           )}
         </>

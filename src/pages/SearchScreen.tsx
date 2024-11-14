@@ -29,10 +29,12 @@ const SearchScreen = () => {
   const navigation = useNavigation();
   const [searchText, setSearchText] = useState('');
   const [selectedImage, setSelectedImage] = useState('');
+  const [imageList, setImageList] = useState([]);
   const [viewImageModal, setViewImageModal] = useState(false);
   const [searchList, setSearchList] = useState([]);
   const [searchModal, setSearchModal] = useState(false);
   const [searchLoading, setSearchLoading] = useState(false);
+  const [imgListLoading, setImgListLoading] = useState(false);
   const [searchresponseCode, setSearchresponseCode] = useState(false);
   const timeoutRef = useRef(null);
 
@@ -92,6 +94,30 @@ const SearchScreen = () => {
     }
   };
 
+  const getImageList = async () => {
+    setImgListLoading(true);
+    try {
+      const user_id = await AsyncStorage.getItem('userId');
+      const data = {
+        user_id: user_id,
+      };
+      // console.log('search data: ', data);
+      let res = await axios.post(`${BASE_URL}feed_search`, data);
+      // console.log('image list  res: ', res.data.data.search_data);
+      if (res.data.status == true) {
+        setImageList(res.data.data.search_data);
+        setImgListLoading(false);
+      } else {
+        failedSnackbar('Something went wrong!');
+        setImgListLoading(false);
+      }
+    } catch (err) {
+      console.log('search err: ', err);
+      setImgListLoading(false);
+      failedSnackbar('Something went wrong!');
+    }
+  };
+
   const checkUserProfile = async id => {
     const user_id = await AsyncStorage.getItem('userId');
     if (user_id == id) {
@@ -103,28 +129,10 @@ const SearchScreen = () => {
     }
   };
 
-  const imageData = [
-    'https://images.pexels.com/photos/158063/bellingrath-gardens-alabama-landscape-scenic-158063.jpeg',
-    'https://images.pexels.com/photos/36487/above-adventure-aerial-air.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    'https://images.pexels.com/photos/326900/pexels-photo-326900.jpeg',
-    'https://images.pexels.com/photos/707344/pexels-photo-707344.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    'https://images.pexels.com/photos/1097456/pexels-photo-1097456.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    'https://images.pexels.com/photos/2681319/pexels-photo-2681319.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    'https://images.pexels.com/photos/1612351/pexels-photo-1612351.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    'https://images.pexels.com/photos/1767434/pexels-photo-1767434.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    'https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    'https://images.pexels.com/photos/1918290/pexels-photo-1918290.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    'https://images.pexels.com/photos/158063/bellingrath-gardens-alabama-landscape-scenic-158063.jpeg',
-    'https://images.pexels.com/photos/36487/above-adventure-aerial-air.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    'https://images.pexels.com/photos/326900/pexels-photo-326900.jpeg',
-    'https://images.pexels.com/photos/707344/pexels-photo-707344.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    'https://images.pexels.com/photos/1097456/pexels-photo-1097456.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    'https://images.pexels.com/photos/2681319/pexels-photo-2681319.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    'https://images.pexels.com/photos/1612351/pexels-photo-1612351.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    'https://images.pexels.com/photos/1767434/pexels-photo-1767434.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    'https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    'https://images.pexels.com/photos/1918290/pexels-photo-1918290.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-  ];
+  useEffect(() => {
+    getImageList();
+  }, []);
+
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#000'}}>
       {/* Header */}
@@ -149,31 +157,54 @@ const SearchScreen = () => {
       </TouchableOpacity>
 
       {/* Images */}
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        data={imageData}
-        numColumns={3}
-        renderItem={({index}) => {
-          return (
-            <TouchableOpacity
-              onPress={() => {
-                setSelectedImage(imageData[index]);
-                setViewImageModal(true);
-              }}>
-              <Image
-                source={{uri: imageData[index]}}
+      {!imgListLoading ? (
+        <>
+          {imageList.length > 0 ? (
+            <FlatList
+              showsVerticalScrollIndicator={false}
+              data={imageList}
+              numColumns={3}
+              renderItem={({item}) => {
+                return (
+                  <TouchableOpacity
+                    onPress={() => {
+                      setSelectedImage(`${IMAGE_URL}${item.image_url}`);
+                      setViewImageModal(true);
+                    }}>
+                    <Image
+                      source={{uri: `${IMAGE_URL}${item.image_url}`}}
+                      style={{
+                        width: windowWidth / 3,
+                        height: 130,
+                        borderColor: '#000',
+                        borderWidth: 1,
+                      }}
+                      resizeMode="cover"
+                    />
+                  </TouchableOpacity>
+                );
+              }}
+            />
+          ) : (
+            <View
+              style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              <Text
                 style={{
-                  width: windowWidth / 3,
-                  height: 130,
-                  borderColor: '#000',
-                  borderWidth: 1,
-                }}
-                resizeMode="cover"
-              />
-            </TouchableOpacity>
-          );
-        }}
-      />
+                  color: '#fff',
+                  fontSize: 16,
+                  width: '70%',
+                  textAlign: 'center',
+                }}>
+                Oops! Looks like we’re out of images. Stay tuned for more.
+              </Text>
+            </View>
+          )}
+        </>
+      ) : (
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <ActivityIndicator size="large" color="#fff" />
+        </View>
+      )}
 
       {/* view Image */}
       <Modal
@@ -347,3 +378,26 @@ const SearchScreen = () => {
   );
 };
 export default SearchScreen;
+
+// const imageData = [
+//   'https://images.pexels.com/photos/158063/bellingrath-gardens-alabama-landscape-scenic-158063.jpeg',
+//   'https://images.pexels.com/photos/36487/above-adventure-aerial-air.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+//   'https://images.pexels.com/photos/326900/pexels-photo-326900.jpeg',
+//   'https://images.pexels.com/photos/707344/pexels-photo-707344.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+//   'https://images.pexels.com/photos/1097456/pexels-photo-1097456.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+//   'https://images.pexels.com/photos/2681319/pexels-photo-2681319.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+//   'https://images.pexels.com/photos/1612351/pexels-photo-1612351.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+//   'https://images.pexels.com/photos/1767434/pexels-photo-1767434.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+//   'https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+//   'https://images.pexels.com/photos/1918290/pexels-photo-1918290.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+//   'https://images.pexels.com/photos/158063/bellingrath-gardens-alabama-landscape-scenic-158063.jpeg',
+//   'https://images.pexels.com/photos/36487/above-adventure-aerial-air.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+//   'https://images.pexels.com/photos/326900/pexels-photo-326900.jpeg',
+//   'https://images.pexels.com/photos/707344/pexels-photo-707344.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+//   'https://images.pexels.com/photos/1097456/pexels-photo-1097456.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+//   'https://images.pexels.com/photos/2681319/pexels-photo-2681319.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+//   'https://images.pexels.com/photos/1612351/pexels-photo-1612351.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+//   'https://images.pexels.com/photos/1767434/pexels-photo-1767434.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+//   'https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+//   'https://images.pexels.com/photos/1918290/pexels-photo-1918290.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+// ];
