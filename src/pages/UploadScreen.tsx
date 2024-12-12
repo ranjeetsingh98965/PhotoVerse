@@ -183,7 +183,7 @@ const UploadScreen = () => {
               style={{position: 'absolute', left: 0, paddingHorizontal: 10}}>
               <Icon name="arrow-left" size={22} color={'#fff'} />
             </TouchableOpacity>
-            <View style={{flex: 1, paddingHorizontal: 10}}>
+            {/* <View style={{flex: 1, paddingHorizontal: 10}}>
               <Text
                 style={{
                   fontWeight: 'bold',
@@ -193,7 +193,7 @@ const UploadScreen = () => {
                 }}>
                 Comments
               </Text>
-            </View>
+            </View> */}
             <TouchableOpacity
               onPress={uploadPost}
               style={{position: 'absolute', right: 0, paddingHorizontal: 10}}>

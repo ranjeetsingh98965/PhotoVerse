@@ -460,7 +460,10 @@ const HomeScreen = () => {
                             color={'#fff'}
                           />
                         </TouchableOpacity>
-                        <TouchableOpacity>
+                        <TouchableOpacity
+                          onPress={() =>
+                            ToastAndroid.show('Coming Soon', ToastAndroid.SHORT)
+                          }>
                           <Icon name="share-variant" size={24} color={'#fff'} />
                         </TouchableOpacity>
                       </View>
