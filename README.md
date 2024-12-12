@@ -1,79 +1,53 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# PhotoVerse
+PhotoVerse is a social media platform where users can connect with others, share photos, and engage with a personalized feed. Discover and interact with individuals through visual content!<br/>
 
-# Getting Started
+SPLASH SCREEN<br/>
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/2e564d7d-b1a1-4d66-87d8-e1be861a4936" widht="400" height="500" />    
+</p><br/><br/>
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+LOGIN SCREEN<br/>
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/9b2d52ea-6185-4401-9185-eec4d673d7fd" widht="400" height="500" />    
+</p><br/><br/>
 
-## Step 1: Start the Metro Server
+SIGNUP SCREEN<br/>
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/29c5f0ac-5459-417e-863d-572f16c2486b" widht="400" height="500" />    
+</p><br/><br/>
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+HOME SCREEN<br/>
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/37116746-5292-4200-9a96-e6a8116630ed" widht="400" height="500" />    
+</p><br/><br/>
 
-To start Metro, run the following command from the _root_ of your React Native project:
+POST COMMENTS<br/>
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/2b38ea24-92a8-4137-a78d-463bb8155ad4" widht="400" height="500" />    
+</p><br/><br/>
 
-```bash
-# using npm
-npm start
+CHECK SOMEONE PROFILE<br/>
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/381bd61a-ac84-450f-a429-86a85aef9e7e" widht="400" height="500" />    
+</p><br/><br/>
 
-# OR using Yarn
-yarn start
-```
+SEARCH SCREEN<br/>
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/b0e92dd8-ba5f-4713-922d-bda9b909fc74" widht="400" height="500" />    
+</p><br/><br/>
 
-## Step 2: Start your Application
+UPLOAD POST<br/>
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/62a1474b-3749-4db2-a330-0df518154913" widht="400" height="500" />    
+</p><br/><br/>
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+MY PROFILE SCREEN<br/>
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/8a777870-fbfe-4241-ad72-38e7e06052ad" widht="400" height="500" />    
+</p><br/><br/>
 
-### For Android
 
-```bash
-# using npm
-npm run android
 
-# OR using Yarn
-yarn android
-```
 
-### For iOS
 
-```bash
-# using npm
-npm run ios
 
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
-
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
-
-## Step 3: Modifying your App
-
-Now that you have successfully run the app, let's modify it.
-
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
-
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
