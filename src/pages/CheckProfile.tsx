@@ -258,8 +258,15 @@ const CheckProfile = ({route}) => {
             />
           ) : (
             <View
-              style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-              <Text style={{color: '#fff', fontSize: 16}}>No posts yet!</Text>
+              style={{
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginHorizontal: '20%',
+              }}>
+              <Text style={{color: '#fff', fontSize: 14, textAlign: 'center'}}>
+                No posts yet!
+              </Text>
             </View>
           )}
         </>

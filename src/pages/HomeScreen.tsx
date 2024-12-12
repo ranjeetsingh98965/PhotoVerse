@@ -539,12 +539,16 @@ const HomeScreen = () => {
             />
           ) : (
             <View
-              style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              style={{
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginHorizontal: '20%',
+              }}>
               <Text
                 style={{
                   color: '#fff',
-                  fontSize: 16,
-                  width: '70%',
+                  fontSize: 14,
                   textAlign: 'center',
                 }}>
                 No posts yet? Discover amazing content by following more users!

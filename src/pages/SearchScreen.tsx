@@ -101,7 +101,7 @@ const SearchScreen = () => {
       const data = {
         user_id: user_id,
       };
-      // console.log('search data: ', data);
+      console.log('search data: ', data);
       let res = await axios.post(`${BASE_URL}feed_search`, data);
       // console.log('image list  res: ', res.data.data.search_data);
       if (res.data.status == true) {
@@ -187,12 +187,16 @@ const SearchScreen = () => {
             />
           ) : (
             <View
-              style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              style={{
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginHorizontal: '20%',
+              }}>
               <Text
                 style={{
                   color: '#fff',
-                  fontSize: 16,
-                  width: '70%',
+                  fontSize: 14,
                   textAlign: 'center',
                 }}>
                 Oops! Looks like we’re out of images. Stay tuned for more.

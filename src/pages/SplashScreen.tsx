@@ -12,9 +12,10 @@ const SplashScreen = () => {
 
   const getUserCerdentials = async () => {
     const userId = await AsyncStorage.getItem('userId');
+    const emailVerified = await AsyncStorage.getItem('emailVerified');
     // console.log('lolo: ', userId);
     setTimeout(() => {
-      if (userId != '' && userId != null) {
+      if (userId != '' && userId != null && emailVerified != 'false') {
         navigation.replace('feed');
       } else {
         navigation.replace('login');

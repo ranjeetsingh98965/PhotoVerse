@@ -192,36 +192,34 @@ const SignupScreen = () => {
                 type: userImageDetail.mime,
                 uri: userImageDetail.path,
               });
+              console.log('fuck: ', formData);
 
               const headers = {
                 'Content-Type': 'multipart/form-data',
               };
 
-              // console.log('data: ', formData);
-              let res = await axios.post(`${BASE_URL}register`, formData, {
+              let response = await axios.post(`${BASE_URL}register`, formData, {
                 headers,
               });
-              // console.log(
-              //   'res: ',
-              //   res.data.data[0].id,
-              //   ' , ',
-              //   typeof res.data.data[0].id,
-              // );
+              console.log('signup userId res: ', response.data.data[0].id);
+              await AsyncStorage.setItem('userId', response.data.data[0].id);
+              await userCredential.user.updateProfile({
+                displayName: username,
+                photoURL: userImage,
+              });
+              console.log('ress: ', userCredential.user);
 
-              await AsyncStorage.setItem('userId', res.data.data[0].id);
+              await AsyncStorage.setItem('emailVerified', 'false');
 
+              console.log('data: ', formData);
               const verificationCheckInterval = setInterval(async () => {
                 await auth().currentUser.reload(); // Reload the user's info
                 const isVerified = auth().currentUser.emailVerified;
                 setEmailVerified(isVerified);
                 if (isVerified) {
                   clearInterval(verificationCheckInterval); // Stop checking once verified
-                  await userCredential.user.updateProfile({
-                    displayName: username,
-                    photoURL: userImage,
-                  });
-                  console.log('ress: ', userCredential.user);
                   Keyboard.dismiss();
+                  await AsyncStorage.setItem('emailVerified', 'true');
                   successSnackbar(
                     'Email verified! You have successfully registered.',
                   );

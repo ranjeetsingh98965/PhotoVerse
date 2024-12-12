@@ -48,27 +48,45 @@ const LoginScreen = () => {
           email,
           password,
         );
-        navigation.replace('feed');
-        setLoading(false);
-        await AsyncStorage.setItem(
-          'userId',
-          JSON.stringify(userCredential.user.uid),
-        );
-        // console.log('userData: ', userCredential.user.uid);
+        console.log('isVerified: ', userCredential.user.emailVerified);
+        if (!userCredential.user.emailVerified) {
+          await auth().signOut();
+          warningSnackbar('Please verify your email before logging in.');
+          setLoading(false);
+          return;
+        }
 
+        const userId = await AsyncStorage.getItem('userId');
+        console.log('lele 1: ', userId);
+        await AsyncStorage.setItem('emailVerified', 'true');
+        const emailVerified = await AsyncStorage.getItem('emailVerified');
         const userData = {
           email: email,
           password: password,
         };
+        console.log(
+          'lele 3: ',
+          email,
+          ' , ',
+          password,
+          ' , emailVerified: ',
+          emailVerified,
+        );
         let res = await axios.post(`${BASE_URL}login`, userData);
-        // console.log('res: ', res.data.data[0].id);
+        console.log('login res id : ', res.data.data[0].id);
         await AsyncStorage.setItem('userId', res.data.data[0].id);
+        navigation.replace('feed');
+        setLoading(false);
       } catch (error) {
         setLoading(false);
-        warningSnackbar(
-          error.message || 'Something went wrong. Please try again.',
-        );
-        console.log(error.message);
+        if (error.code === 'auth/user-not-found') {
+          failedSnackbar('No account found with this email.');
+        } else if (error.code === 'auth/wrong-password') {
+          failedSnackbar('Incorrect password.');
+        } else {
+          console.error('Login error:', error);
+          failedSnackbar(error.message || 'Login failed. Please try again.');
+        }
       }
     } else {
       warningSnackbar('All fields are required.');

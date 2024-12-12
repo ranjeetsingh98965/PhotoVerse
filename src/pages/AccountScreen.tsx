@@ -55,9 +55,9 @@ const AccountScreen = () => {
       const data = {
         user_id: user_id,
       };
-      // console.log('get profile data: ', data);
+      console.log('get profile data: ', data);
       let res = await axios.post(`${BASE_URL}my_profile`, data);
-      // console.log('get profile res: ', res.data.data['user_details']);
+      console.log('get profile res: ', res.data.data['user_details']);
       if (res.data.status == true) {
         setProfileData(res.data.data['user_details']);
         setPostData(res.data.data['feed_data']);
@@ -214,8 +214,13 @@ const AccountScreen = () => {
             />
           ) : (
             <View
-              style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-              <Text style={{color: '#fff', fontSize: 16}}>
+              style={{
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginHorizontal: '20%',
+              }}>
+              <Text style={{color: '#fff', fontSize: 14, textAlign: 'center'}}>
                 No images here yet! Start capturing memories to fill this space.
               </Text>
             </View>
